@@ -9,6 +9,7 @@ Menuconfig:   # Open kernel menuconfig
 ```
 ### Commands
 ```
+make depends  # Install dependencies
 make config   # Create a userdata.txt file
 make kernel   # Build deb package
 make purge    # Remove temporary directory
