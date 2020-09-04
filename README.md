@@ -2,7 +2,7 @@
 
 ### Config Menu
 ```sh
-Defconfig:    # Name of yourfile_defconfig
+Defconfig:    # Name of 'nameofdefconfig'_defconfig
 Branch:       # Kernel branch
 Arch:         # Supoported: x86, arm64 and arm (native compile only)
 Menuconfig:   # 1 to run kernel menuconfig | 0 to skip
