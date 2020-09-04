@@ -1,4 +1,4 @@
-# Linux kernel builder for Debian
+## Build a linux kernel *.deb package
 
 ### Config Menu
 ```sh
