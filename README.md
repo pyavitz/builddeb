@@ -18,3 +18,9 @@ make purge    # Remove temporary directory
 ```sh
 Patches "-p1" placed in the patches directory are applied during compilation.
 ```
+
+### Notes
+```sh
+The name of your defconfig, will become the name of the kernel packages created.
+For example: nameofdefconfig-linux-image nameofdefconfig-linux-headers
+```
