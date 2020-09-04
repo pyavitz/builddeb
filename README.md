@@ -5,10 +5,10 @@
 Defconfig:    # Name of yourfile_defconfig
 Branch:       # Kernel branch
 Arch:         # Supoported: x86, arm64 and arm (native compile only)
-Menuconfig:   # Open kernel menuconfig
+Menuconfig:   # 1 to run kernel menuconfig | 0 to skip
 ```
 ### Commands
-```
+```sh
 make depends  # Install dependencies
 make config   # Create a userdata.txt file
 make kernel   # Build deb package
