@@ -1,0 +1,87 @@
+download (){
+echo -e "${RED}Downloading archive${FIN}."
+aria2c -c https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-${VERSION}.tar.xz
+}
+
+extract (){
+echo
+echo -e "${RED}Extracting archive${FIN}."
+tar xf linux-${VERSION}.tar.xz
+#rm -f linux-${VERSION}.tar.xz #remove package
+echo -e "${RED}Done${FIN}."
+}
+
+move_builddeb (){
+cp -f ../../defconfig/builddeb scripts/package/
+cp -f ../../defconfig/mkdebian scripts/package/
+}
+
+# setup
+setup (){
+sleep 1s
+cd linux-${VERSION}
+# edit kernel package name
+rm -f scripts/package/builddeb
+rm -f scripts/package/mkdebian
+move_builddeb
+chmod +x scripts/package/builddeb
+chmod +x scripts/package/mkdebian
+sed -i 's/packagename=linux-image-$version/packagename='$DEFCONFIG'-linux-image/g' scripts/package/builddeb
+sed -i 's/kernel_headers_packagename=linux-headers-$version/kernel_headers_packagename='$DEFCONFIG'-linux-headers/g' scripts/package/builddeb
+sed -i 's/packagename=linux-image-$version/packagename='$DEFCONFIG'-linux-image/g' scripts/package/mkdebian
+sed -i 's/kernel_headers_packagename=linux-headers-$version/kernel_headers_packagename='$DEFCONFIG'-linux-headers/g' scripts/package/mkdebian
+}
+
+defconfig (){
+echo
+echo -e "${RED}Building ${DEFCONFIG}_defconfig${FIN}."
+cp -f ../../defconfig/${DEFCONFIG}_defconfig arch/${ARCH}/configs/
+make ARCH=${ARCH} ${DEFCONFIG}_defconfig
+echo -e "${RED}Done${FIN}."
+}
+
+menuconfig (){
+echo
+echo -e "${RED}Opening menuconfig${FIN}."
+sleep 1s
+make menuconfig
+echo -e "${RED}Done${FIN}."
+}
+
+builddeb (){
+echo
+echo -e "${RED}Building deb packages${FIN}."
+if `grep -Fx 'ARCH="x86"' "../userdata.txt" >/dev/null;`
+    then make -j${CORES} bindeb-pkg
+fi
+if `grep -Fx 'ARCH="arm64"' "../userdata.txt" >/dev/null;`
+    then echo 'y' | make -j${CORES} ARCH=arm64 bindeb-pkg
+fi
+if `grep -Fx 'ARCH="armhf"' "../userdata.txt" >/dev/null;`
+    then echo 'y' | make -j${CORES} ARCH=armhf bindeb-pkg
+fi
+echo
+cd ..
+rm -f linux-libc-dev*.deb
+rm -f *.buildinfo
+rm -f *.changes
+echo -e "${RED}Done${FIN}."
+}
+
+clean (){
+if ls linux-${VERSION} > /dev/null 2>&1;
+	then echo "" && echo -e "${YLW}Cleaning${FIN} ..." && rm -fdr linux-${VERSION};
+fi
+if ls *.deb > /dev/null 2>&1;
+	then mkdir -p debs && mv -f *.deb debs/;
+fi
+}
+
+userpatches (){
+if
+ls ../${UP}/*.patch > /dev/null 2>&1;
+then echo -e "${GRN}Applying user patches${FIN}." &&
+for i in ../${UP}/*.patch; do patch -p1 < $i; done ;
+else echo -e "${YLW}No user patches found${FIN}." 
+fi
+}
