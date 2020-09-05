@@ -9,6 +9,7 @@ help:
 	@echo
 	@echo "Usage: "
 	@echo
+	@echo "  make depends           Install dependencies"
 	@echo "  make config            Create user data file"
 	@echo "  make linux             Build kernel deb"
 	@echo "  make purge             Remove tmp directory"
