@@ -11,7 +11,7 @@ help:
 	@echo
 	@echo "  make depends           Install dependencies"
 	@echo "  make config            Create user data file"
-	@echo "  make linux             Build kernel deb"
+	@echo "  make kernel            Build kernel deb"
 	@echo "  make purge             Remove tmp directory"
 	@echo
 	@echo "For details consult the README.md"
