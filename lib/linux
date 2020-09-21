@@ -1,12 +1,16 @@
+echo_bdone () {
+echo -e "${PNK}[${FIN}${GRN}done${FIN}${PNK}]${FIN}"
+}
+
 download (){
 echo -e "${RED}Downloading archive${FIN}."
-aria2c -c https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-${VERSION}.tar.xz
+aria2c -c --download-result=hide --console-log-level=error --disable-ipv6=true --summary-interval=0 --show-files=false https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-${VERSION}.tar.xz && echo_bdone
 }
 
 extract (){
 echo
 echo -e "${RED}Extracting archive${FIN}."
-tar xf linux-${VERSION}.tar.xz
+tar xf linux-${VERSION}.tar.xz --checkpoint=.100
 #rm -f linux-${VERSION}.tar.xz #remove package
 echo -e "${RED}Done${FIN}."
 }
@@ -14,18 +18,21 @@ echo -e "${RED}Done${FIN}."
 move_builddeb (){
 cp -f ../../defconfig/builddeb scripts/package/
 cp -f ../../defconfig/mkdebian scripts/package/
+chmod +x scripts/package/builddeb
+chmod +x scripts/package/mkdebian
 }
 
 # setup
 setup (){
 sleep 1s
 cd linux-${VERSION}
-# edit kernel package name
 rm -f scripts/package/builddeb
 rm -f scripts/package/mkdebian
 move_builddeb
-chmod +x scripts/package/builddeb
-chmod +x scripts/package/mkdebian
+}
+
+sed_name (){
+# edit kernel package name
 sed -i 's/packagename=linux-image-$version/packagename='$DEFCONFIG'-linux-image/g' scripts/package/builddeb
 sed -i 's/kernel_headers_packagename=linux-headers-$version/kernel_headers_packagename='$DEFCONFIG'-linux-headers/g' scripts/package/builddeb
 sed -i 's/packagename=linux-image-$version/packagename='$DEFCONFIG'-linux-image/g' scripts/package/mkdebian
@@ -81,7 +88,7 @@ userpatches (){
 if
 ls ../${UP}/*.patch > /dev/null 2>&1;
 then echo -e "${GRN}Applying user patches${FIN}." &&
-for i in ../${UP}/*.patch; do patch -p1 < $i; done ;
-else echo -e "${YLW}No user patches found${FIN}." 
+for i in ../${UP}/*.patch; do patch -p1 < $i; done && echo -e "${RED}Done${FIN}.";
+else echo -e "${YLW}No user patches found${FIN}.";
 fi
 }

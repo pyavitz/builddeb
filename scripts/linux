@@ -1,18 +1,17 @@
 #!/bin/bash
 source lib/linux
-source userdata.txt
 CORES=`nproc`
 UP="../patches"
 RED="\e[1;31m"
 GRN="\e[1;32m"
 YLW="\e[1;33m"
+PNK="\e[1;35m"
 FIN="\e[0m"
-UD="userdata.txt"
 userdata () {
 echo ""
 echo "Please create a userdata.txt file"
 while [ true ] ; do
-read -t 20 -n 1
+read -t 10 -n 1
 if [ $? = 0 ] ; then
 exit ;
 else
@@ -21,12 +20,11 @@ fi
 done
 }
 
-if [ -f "$UD" ]; then
-    echo ""
-    echo -e "${GRN}$UD file found${FIN}."
-else 
-    userdata
+if ls userdata.txt > /dev/null 2>&1;
+	then echo "" && echo -e "${GRN}userdata file found${FIN}.";
+	else userdata;
 fi
+source userdata.txt
 mkdir -p linux
 cp userdata.txt linux/
 cd linux
@@ -37,6 +35,7 @@ extract
 setup
 echo
 userpatches
+sed_name
 defconfig
 if `grep -Fx "menuconfig=1" "../userdata.txt" >/dev/null;`
     then menuconfig ;
