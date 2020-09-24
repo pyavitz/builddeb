@@ -20,7 +20,7 @@ help:
 depends:
 	# Installing dependencies
 	sudo apt install build-essential bc kmod cpio flex libncurses5-dev aria2 git dialog patch \
-	rsync lzop lz4 libssl-dev
+	rsync lzop lz4 libssl-dev pv aria2
 kernel:
 	# Linux
 	@chmod +x ${LINUX}
