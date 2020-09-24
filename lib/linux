@@ -10,12 +10,6 @@ if ls linux-${VERSION}.tar.xz > /dev/null 2>&1;
 fi
 }
 
-stable_download () {
-echo
-echo_stable
-
-}
-
 extract (){
 echo
 echo -e "${RED}Extracting${FIN} ..."
