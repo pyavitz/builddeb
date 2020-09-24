@@ -9,10 +9,10 @@ aria2c -c --download-result=hide --console-log-level=error --disable-ipv6=true -
 
 extract (){
 echo
-echo -e "${RED}Extracting archive${FIN}."
-tar xf linux-${VERSION}.tar.xz --checkpoint=.100
-#rm -f linux-${VERSION}.tar.xz #remove package
-echo -e "${RED}Done${FIN}."
+echo_extract
+echo -e -n "${WHT}"
+pv ${KERNEL}-${VERSION}.tar.xz | tar -xJ ${KERNEL}-${VERSION}
+echo -e -n "${FIN}"
 }
 
 move_builddeb (){
