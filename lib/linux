@@ -4,14 +4,23 @@ echo -e "${PNK}[${FIN}${GRN}done${FIN}${PNK}]${FIN}"
 
 download (){
 echo -e "${RED}Downloading archive${FIN}."
-aria2c -c --download-result=hide --console-log-level=error --disable-ipv6=true --summary-interval=0 --show-files=false https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-${VERSION}.tar.xz && echo_bdone
+if ls linux-${VERSION}.tar.xz > /dev/null 2>&1;
+	then echo -e "${YLW}linux-${VERSION}.tar.xz found${FIN}.";
+	else aria2c -c --download-result=hide --console-log-level=error --disable-ipv6=true --summary-interval=0 --show-files=false https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-${VERSION}.tar.xz && echo_bdone;
+fi
+}
+
+stable_download () {
+echo
+echo_stable
+
 }
 
 extract (){
 echo
 echo -e "${RED}Extracting${FIN} ..."
 echo -e -n "${WHT}"
-pv ${KERNEL}-${VERSION}.tar.xz | tar -xJ ${KERNEL}-${VERSION}
+pv linux-${VERSION}.tar.xz | tar -xJ linux-${VERSION}
 echo -e -n "${FIN}"
 }
 
