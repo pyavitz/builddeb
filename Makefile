@@ -38,7 +38,6 @@ config:
 	@chmod +x ${CONF}
 	@${CONF}
 
-
 dialogrc:
 	# Builder theme set
 	@${DIALOGRC}
