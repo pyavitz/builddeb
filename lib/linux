@@ -9,7 +9,7 @@ aria2c -c --download-result=hide --console-log-level=error --disable-ipv6=true -
 
 extract (){
 echo
-echo_extract
+echo -e "${RED}Extracting${FIN} ..."
 echo -e -n "${WHT}"
 pv ${KERNEL}-${VERSION}.tar.xz | tar -xJ ${KERNEL}-${VERSION}
 echo -e -n "${FIN}"
