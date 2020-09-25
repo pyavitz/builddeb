@@ -4,7 +4,7 @@ RED="\e[0;31m"
 FIN="\e[0m"
 
 DEFCONFIG=""
-VERSION="5.4.62"
+VERSION="5.8.11"
 ARCH="x86"
 menuconfig="1"
 
@@ -13,7 +13,7 @@ exec 3>&1
 
 # Store data to $VALUES variable
 VALUES=$(dialog --ok-label "Submit" \
-	  --backtitle "Linux kernel builder for Debian x86_64/amd64" \
+	  --backtitle "Linux kernel builder for Debian, Devuan and Ubuntu" \
 	  --title "Config Menu" \
 	  --form "Choose:" \
 10 28 4 \
@@ -42,5 +42,5 @@ rm -f tmp0 tmp1 tmp2
 clear
 
 # userdata
-echo -e "${RED}userdata file created.${FIN}"
+echo -e "${RED}userdata file created${FIN}."
 echo
