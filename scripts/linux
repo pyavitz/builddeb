@@ -10,13 +10,13 @@ WHT="\e[1;37m"
 FIN="\e[0m"
 userdata () {
 echo ""
-echo "Please create a userdata.txt file"
+echo -e "${RED}Please create a userdata file${FIN}."
 while [ true ] ; do
-read -t 10 -n 1
+read -t 7 -n 1
 if [ $? = 0 ] ; then
 exit ;
 else
-echo "run make config"
+echo -e "${WHT}run make config${FIN}"
 fi
 done
 }
