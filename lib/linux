@@ -1,16 +1,22 @@
-echo_bdone () {
+echo_bdone(){
 echo -e "${PNK}[${FIN}${GRN}done${FIN}${PNK}]${FIN}"
 }
 
-download (){
+download(){
 echo -e "${RED}Downloading archive${FIN}."
 if ls linux-${VERSION}.tar.xz > /dev/null 2>&1;
 	then echo -e "${YLW}linux-${VERSION}.tar.xz found${FIN}.";
 	else aria2c -c --download-result=hide --console-log-level=error --disable-ipv6=true --summary-interval=0 --show-files=false https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-${VERSION}.tar.xz && echo_bdone;
 fi
+if `grep -Fx "rtl8812au=1" "../userdata.txt" >/dev/null;`
+	then rtl8812au_download;
+fi
+if `grep -Fx "rtl8811cu=1" "../userdata.txt" >/dev/null;`
+	then rtl8811cu_download;
+fi
 }
 
-extract (){
+extract(){
 echo
 echo -e "${RED}Extracting${FIN} ..."
 echo -e -n "${WHT}"
@@ -18,7 +24,7 @@ pv linux-${VERSION}.tar.xz | tar -xJ linux-${VERSION}
 echo -e -n "${FIN}"
 }
 
-move_builddeb (){
+move_builddeb(){
 cp -f ../../defconfig/builddeb scripts/package/
 cp -f ../../defconfig/mkdebian scripts/package/
 chmod +x scripts/package/builddeb
@@ -26,15 +32,21 @@ chmod +x scripts/package/mkdebian
 }
 
 # setup
-setup (){
+setup(){
 sleep 1s
+if `grep -Fx "rtl8812au=1" "../userdata.txt" >/dev/null;`
+	then rtl8812au;
+fi
+if `grep -Fx "rtl8811cu=1" "../userdata.txt" >/dev/null;`
+	then rtl8811cu;
+fi
 cd linux-${VERSION}
 rm -f scripts/package/builddeb
 rm -f scripts/package/mkdebian
 move_builddeb
 }
 
-sed_name (){
+sed_name(){
 # edit kernel package name
 sed -i 's/packagename=linux-image-$version/packagename='$DEFCONFIG'-linux-image/g' scripts/package/builddeb
 sed -i 's/kernel_headers_packagename=linux-headers-$version/kernel_headers_packagename='$DEFCONFIG'-linux-headers/g' scripts/package/builddeb
@@ -42,15 +54,17 @@ sed -i 's/packagename=linux-image-$version/packagename='$DEFCONFIG'-linux-image/
 sed -i 's/kernel_headers_packagename=linux-headers-$version/kernel_headers_packagename='$DEFCONFIG'-linux-headers/g' scripts/package/mkdebian
 }
 
-defconfig (){
+defconfig(){
 echo
 echo -e "${RED}Building ${DEFCONFIG}_defconfig${FIN}."
 cp -f ../../defconfig/${DEFCONFIG}_defconfig arch/${ARCH}/configs/
+rtl8812au_module
+rtl8811cu_module
 make ARCH=${ARCH} ${DEFCONFIG}_defconfig
 echo -e "${RED}Done${FIN}."
 }
 
-menuconfig (){
+menuconfig(){
 echo
 echo -e "${RED}Opening menuconfig${FIN}."
 sleep 1s
@@ -58,7 +72,7 @@ make menuconfig
 echo -e "${RED}Done${FIN}."
 }
 
-builddeb (){
+builddeb(){
 echo
 echo -e "${RED}Building deb packages${FIN}."
 if `grep -Fx 'ARCH="x86"' "../userdata.txt" >/dev/null;`
@@ -78,7 +92,7 @@ rm -f *.changes
 echo -e "${RED}Done${FIN}."
 }
 
-clean (){
+clean(){
 if ls linux-${VERSION} > /dev/null 2>&1;
 	then echo "" && echo -e "${YLW}Cleaning${FIN} ..." && rm -fdr linux-${VERSION};
 fi
@@ -87,7 +101,7 @@ if ls *.deb > /dev/null 2>&1;
 fi
 }
 
-userpatches (){
+userpatches(){
 if
 ls ../${UP}/*.patch > /dev/null 2>&1;
 then echo -e "${GRN}Applying user patches${FIN}." &&
