@@ -1,3 +1,10 @@
+sources(){
+source userdata.txt
+mkdir -p sources
+cp userdata.txt sources/
+cd sources
+}
+
 echo_bdone(){
 echo -e "${PNK}[${FIN}${GRN}done${FIN}${PNK}]${FIN}"
 }
@@ -10,6 +17,9 @@ if ls linux-${VERSION}.tar.xz > /dev/null 2>&1;
 fi
 if `grep -Fx "rtl8812au=1" "../userdata.txt" >/dev/null;`
 	then rtl8812au_download;
+fi
+if `grep -Fx "rtl88x2bu=1" "../userdata.txt" >/dev/null;`
+	then rtl88x2bu_download;
 fi
 if `grep -Fx "rtl8811cu=1" "../userdata.txt" >/dev/null;`
 	then rtl8811cu_download;
@@ -37,6 +47,9 @@ sleep 1s
 if `grep -Fx "rtl8812au=1" "../userdata.txt" >/dev/null;`
 	then rtl8812au;
 fi
+if `grep -Fx "rtl88x2bu=1" "../userdata.txt" >/dev/null;`
+	then rtl88x2bu;
+fi
 if `grep -Fx "rtl8811cu=1" "../userdata.txt" >/dev/null;`
 	then rtl8811cu;
 fi
@@ -59,6 +72,7 @@ echo
 echo -e "${RED}Building ${DEFCONFIG}_defconfig${FIN}."
 cp -f ../../defconfig/${DEFCONFIG}_defconfig arch/${ARCH}/configs/
 rtl8812au_module
+rtl88x2bu_module
 rtl8811cu_module
 make ARCH=${ARCH} ${DEFCONFIG}_defconfig
 echo -e "${RED}Done${FIN}."

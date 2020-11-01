@@ -7,6 +7,7 @@ Branch:       # Kernel branch
 Arch:         # Supoported: x86, arm64 and arm (native compile only)
 Menuconfig:   # 1 to run kernel menuconfig | 0 to skip
 rtl88XXau:    # 1 to add Realtek 8812AU/14AU/21AU wireless support
+rtl88XXbu:    # 1 to add Realtek 88X2BU wireless support
 rtl88XXcu:    # 1 to add Realtek 8811CU/21CU wireless support
 ```
 ### Commands

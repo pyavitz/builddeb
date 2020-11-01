@@ -26,10 +26,7 @@ if ls userdata.txt > /dev/null 2>&1;
 	then echo "" && echo -e "${GRN}userdata file found${FIN}.";
 	else userdata;
 fi
-source userdata.txt
-mkdir -p linux
-cp userdata.txt linux/
-cd linux
+sources
 clean
 echo
 download
