@@ -84,21 +84,21 @@ echo -e "${RED}done${FIN}."
 }
 
 rtl88x2bu(){
-rm -rf ${KERNEL}-${VERSION}/drivers/net/wireless/rtl88x2bu
-mkdir -p ${KERNEL}-${VERSION}/drivers/net/wireless/rtl88x2bu/
+rm -rf linux-${VERSION}/drivers/net/wireless/rtl88x2bu
+mkdir -p linux-${VERSION}/drivers/net/wireless/rtl88x2bu/
 cp -R rtl88x2bu/{core,hal,include,os_dep,platform,halmac.mk,rtl8822b.mk} \
-${KERNEL}-${VERSION}/drivers/net/wireless/rtl88x2bu
-cp -f rtl88x2bu/Makefile ${KERNEL}-${VERSION}/drivers/net/wireless/rtl88x2bu/Makefile
-cp -f rtl88x2bu/Kconfig ${KERNEL}-${VERSION}/drivers/net/wireless/rtl88x2bu/Kconfig
-sed -i 's/---help---/help/g' ${KERNEL}-${VERSION}/drivers/net/wireless/rtl88x2bu/Kconfig
+linux-${VERSION}/drivers/net/wireless/rtl88x2bu
+cp -f rtl88x2bu/Makefile linux-${VERSION}/drivers/net/wireless/rtl88x2bu/Makefile
+cp -f rtl88x2bu/Kconfig linux-${VERSION}/drivers/net/wireless/rtl88x2bu/Kconfig
+sed -i 's/---help---/help/g' linux-${VERSION}/drivers/net/wireless/rtl88x2bu/Kconfig
 sed -i 's/include $(src)\/rtl8822b.mk /include $(TopDIR)\/drivers\/net\/wireless\/rtl88x2bu\/rtl8822b.mk/' \
-${KERNEL}-${VERSION}/drivers/net/wireless/rtl88x2bu/Makefile
-echo "obj-\$(CONFIG_RTL8822BU) += rtl88x2bu/" >> ${KERNEL}-${VERSION}/drivers/net/wireless/Makefile
+linux-${VERSION}/drivers/net/wireless/rtl88x2bu/Makefile
+echo "obj-\$(CONFIG_RTL8822BU) += rtl88x2bu/" >> linux-${VERSION}/drivers/net/wireless/Makefile
 sed -i '/source "drivers\/net\/wireless\/ti\/Kconfig"/a source "drivers\/net\/wireless\/rtl88x2bu\/Kconfig"' \
-${KERNEL}-${VERSION}/drivers/net/wireless/Kconfig
+linux-${VERSION}/drivers/net/wireless/Kconfig
 }
 
-rtl8811cu_select(){
+rtl88x2bu_select(){
 if ls arch/${ARCH}/configs/${DEFCONFIG}_defconfig > /dev/null 2>&1;
 	then echo CONFIG_RTL8822BU=m >> arch/${ARCH}/configs/${DEFCONFIG}_defconfig ;
 fi
