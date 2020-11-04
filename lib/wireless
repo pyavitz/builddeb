@@ -46,7 +46,7 @@ echo -e "${RED}done${FIN}."
 rtl8811cu(){
 rm -rf linux-${VERSION}/drivers/net/wireless/rtl8811cu
 mkdir -p linux-${VERSION}/drivers/net/wireless/rtl8811cu/
-cp -R rtl8811cu/{core,hal,include,os_dep,platform,rtl8821c.mk} \
+cp -R rtl8811cu/{core,hal,include,os_dep,platform,rtl8821c.mk,halmac.mk} \
 linux-${VERSION}/drivers/net/wireless/rtl8811cu
 cp -R rtl8811cu/Makefile linux-${VERSION}/drivers/net/wireless/rtl8811cu/Makefile
 cp -R rtl8811cu/Kconfig linux-${VERSION}/drivers/net/wireless/rtl8811cu/Kconfig
