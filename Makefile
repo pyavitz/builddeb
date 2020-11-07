@@ -1,6 +1,7 @@
 CONF=./lib/config
 DIALOGRC=$(shell cp -f lib/dialogrc ~/.dialogrc)
-LINUX=./scripts/linux
+XLINUX=./scripts/linux
+LINUX=sudo ./scripts/linux
 PURGE=$(shell sudo rm -fdr linux*)
 
 help:
@@ -23,7 +24,7 @@ depends:
 	rsync lzop lz4 libssl-dev pv
 kernel:
 	# Linux
-	@chmod +x ${LINUX}
+	@chmod +x ${XLINUX}
 	@${LINUX}
 
 # clean up

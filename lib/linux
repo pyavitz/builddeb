@@ -74,6 +74,8 @@ cp -f ../../defconfig/${DEFCONFIG}_defconfig arch/${ARCH}/configs/
 rtl8812au_module
 rtl88x2bu_module
 rtl8811cu_module
+echo CONFIG_MODULE_SIG=y >> arch/${ARCH}/configs/${DEFCONFIG}_defconfig
+echo CONFIG_MODULE_SIG_KEY='"'certs/signing_key.pem'"' >> arch/${ARCH}/configs/${DEFCONFIG}_defconfig
 make ARCH=${ARCH} ${DEFCONFIG}_defconfig
 echo -e "${RED}Done${FIN}."
 }
