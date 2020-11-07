@@ -2,7 +2,7 @@ CONF=./lib/config
 DIALOGRC=$(shell cp -f lib/dialogrc ~/.dialogrc)
 XLINUX=./scripts/linux
 LINUX=sudo ./scripts/linux
-PURGE=$(shell sudo rm -fdr linux*)
+PURGE=$(shell sudo rm -fdr sources)
 
 help:
 	@echo
