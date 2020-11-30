@@ -21,7 +21,7 @@ help:
 depends:
 	# Installing dependencies
 	sudo apt install build-essential bc kmod cpio flex libncurses5-dev aria2 git dialog patch \
-	rsync lzop lz4 libssl-dev pv
+	rsync lzop lz4 libssl-dev pv distro-info-data lsb-release
 kernel:
 	# Linux
 	@chmod +x ${XLINUX}
