@@ -4,7 +4,7 @@ RED="\e[0;31m"
 FIN="\e[0m"
 
 DEFCONFIG=""
-VERSION="5.8.17"
+VERSION="5.9.14"
 ARCH="x86"
 menuconfig="1"
 rtl88XXau="0"
