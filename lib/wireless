@@ -1,10 +1,27 @@
 # RTL8812AU
-rtl8812au_download(){
+rtl8812au_choose(){
+if `grep -Fx "aircrack=1" "../userdata.txt" >/dev/null;`
+	then rtl8812au_aircrack;
+	else rtl8812au_trendtechcn;
+fi
+}
+
+rtl8812au_aircrack(){
 echo
-echo -e "${RED}Downloading rtl88XXau wifi module${FIN}."
+echo -e "${RED}Downloading rtl88XXau wifi module${FIN}. (aircrack)"
 if ls rtl8812au > /dev/null 2>&1;
 	then echo -e "${YLW}rtl88XXau found${FIN}.";
 	else git clone https://github.com/aircrack-ng/rtl8812au rtl8812au ;
+fi
+echo -e "${RED}done${FIN}."
+}
+
+rtl8812au_trendtechcn(){
+echo
+echo -e "${RED}Downloading rtl88XXau wifi module${FIN}. (trendtechcn)"
+if ls rtl8812au > /dev/null 2>&1;
+	then echo -e "${YLW}rtl88XXau found${FIN}.";
+	else git clone https://github.com/pyavitz/rtl8812au.git rtl8812au ;
 fi
 echo -e "${RED}done${FIN}."
 }
@@ -20,9 +37,22 @@ sed -i '/source "drivers\/net\/wireless\/ti\/Kconfig"/a source "drivers\/net\/wi
 linux-${VERSION}/drivers/net/wireless/Kconfig
 }
 
-rtl8812au_select(){
+rtl8812au-ac_select(){
 if ls arch/${ARCH}/configs/${DEFCONFIG}_defconfig > /dev/null 2>&1;
 	then echo CONFIG_88XXAU=m >> arch/${ARCH}/configs/${DEFCONFIG}_defconfig ;
+fi
+}
+
+rtl8812au-tt_select(){
+if ls arch/${ARCH}/configs/${DEFCONFIG}_defconfig > /dev/null 2>&1;
+	then echo CONFIG_RTL8812AU=m >> arch/${ARCH}/configs/${DEFCONFIG}_defconfig ;
+fi
+}
+
+rtl8812au_select(){
+if `grep -Fx "aircrack=1" "../userdata.txt" >/dev/null;`
+	then rtl8812au-ac_select;
+	else rtl8812au-tt_select;
 fi
 }
 

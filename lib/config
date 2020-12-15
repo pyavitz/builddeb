@@ -41,6 +41,7 @@ echo menuconfig= >> tmp0
 echo rtl8812au= >> tmp0
 echo rtl88x2bu= >> tmp0
 echo rtl8811cu= >> tmp0
+echo aircrack=1 >> tmp0
 echo '"' > tmp2
 echo '"' >> tmp2
 echo '"' >> tmp2
