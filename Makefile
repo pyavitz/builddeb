@@ -3,6 +3,7 @@ DIALOGRC=$(shell cp -f lib/dialogrc ~/.dialogrc)
 XLINUX=./scripts/linux
 LINUX=sudo ./scripts/linux
 PURGE=$(shell sudo rm -fdr sources)
+PURGEWIFI=$(shell sudo rm -fdr sources/rtl*)
 
 help:
 	@echo
@@ -13,7 +14,8 @@ help:
 	@echo "  make depends           Install dependencies"
 	@echo "  make config            Create user data file"
 	@echo "  make kernel            Build kernel deb"
-	@echo "  make purge             Remove tmp directory"
+	@echo "  make purge             Remove sources directory"
+	@echo "  make purge-wifi        Remove wifi directories"
 	@echo
 	@echo "For details consult the README.md"
 	@echo
@@ -29,8 +31,13 @@ kernel:
 
 # clean up
 purge:
-	# Removing tmp directory
+	# Removing sources directory
 	@${PURGE}
+	@echo Done.
+
+purge-wifi:
+	# Removing sources/wifi directories
+	@${PURGEWIFI}
 	@echo Done.
 
 # menu
