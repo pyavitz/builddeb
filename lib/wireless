@@ -44,7 +44,7 @@ sed -i '/source "drivers\/net\/wireless\/ti\/Kconfig"/a source "drivers\/net\/wi
 linux-${VERSION}/drivers/net/wireless/Kconfig
 }
 
-rtl8812au_ac_setup(){
+rtl8812au_tt_setup(){
 rm -rf linux-${VERSION}/drivers/net/wireless/rtl8812au
 mkdir -p linux-${VERSION}/drivers/net/wireless/rtl8812au/
 cp -R rtl8812au/{core,hal,include,os_dep,platform} linux-${VERSION}/drivers/net/wireless/rtl8812au
