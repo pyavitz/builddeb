@@ -26,13 +26,31 @@ fi
 echo -e "${RED}done${FIN}."
 }
 
-rtl8812au(){
+rtl8812au_setup(){
+if `grep -Fx "aircrack=1" "../userdata.txt" >/dev/null;`
+	then rtl8812au_ac_setup;
+	else rtl8812au_tt_setup;
+fi
+}
+
+rtl8812au_ac_setup(){
 rm -rf linux-${VERSION}/drivers/net/wireless/rtl8812au
 mkdir -p linux-${VERSION}/drivers/net/wireless/rtl8812au/
 cp -R rtl8812au/{core,hal,include,os_dep,platform} linux-${VERSION}/drivers/net/wireless/rtl8812au
 cp -R rtl8812au/Makefile linux-${VERSION}/drivers/net/wireless/rtl8812au/Makefile
 cp -R rtl8812au/Kconfig linux-${VERSION}/drivers/net/wireless/rtl8812au/Kconfig
 echo "obj-\$(CONFIG_88XXAU) += rtl8812au/" >> "linux-${VERSION}/drivers/net/wireless/Makefile"
+sed -i '/source "drivers\/net\/wireless\/ti\/Kconfig"/a source "drivers\/net\/wireless\/rtl8812au\/Kconfig"' \
+linux-${VERSION}/drivers/net/wireless/Kconfig
+}
+
+rtl8812au_ac_setup(){
+rm -rf linux-${VERSION}/drivers/net/wireless/rtl8812au
+mkdir -p linux-${VERSION}/drivers/net/wireless/rtl8812au/
+cp -R rtl8812au/{core,hal,include,os_dep,platform} linux-${VERSION}/drivers/net/wireless/rtl8812au
+cp -R rtl8812au/Makefile linux-${VERSION}/drivers/net/wireless/rtl8812au/Makefile
+cp -R rtl8812au/Kconfig linux-${VERSION}/drivers/net/wireless/rtl8812au/Kconfig
+echo "obj-\$(CONFIG_RTL8812AU) += rtl8812au/" >> "linux-${VERSION}/drivers/net/wireless/Makefile"
 sed -i '/source "drivers\/net\/wireless\/ti\/Kconfig"/a source "drivers\/net\/wireless\/rtl8812au\/Kconfig"' \
 linux-${VERSION}/drivers/net/wireless/Kconfig
 }

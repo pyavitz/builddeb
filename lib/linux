@@ -45,7 +45,7 @@ chmod +x scripts/package/mkdebian
 setup(){
 sleep 1s
 if `grep -Fx "rtl8812au=1" "../userdata.txt" >/dev/null;`
-	then rtl8812au;
+	then rtl8812au_setup;
 fi
 if `grep -Fx "rtl88x2bu=1" "../userdata.txt" >/dev/null;`
 	then rtl88x2bu;
