@@ -103,6 +103,7 @@ cd ..
 rm -f linux-libc-dev*.deb
 rm -f *.buildinfo
 rm -f *.changes
+mkdir -p ../output/${DEFCONFIG} && mv -f *.deb ../output/${DEFCONFIG}/
 echo -e "${RED}Done${FIN}."
 }
 
