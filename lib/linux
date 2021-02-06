@@ -16,7 +16,7 @@ if ls linux-${VERSION}.tar.xz > /dev/null 2>&1;
 	else aria2c -c --download-result=hide --console-log-level=error --disable-ipv6=true --summary-interval=0 --show-files=false https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-${VERSION}.tar.xz && echo_bdone;
 fi
 if `grep -Fx "rtl8812au=1" "../userdata.txt" >/dev/null;`
-	then rtl8812au_choose;
+	then rtl8812au_download;
 fi
 if `grep -Fx "rtl88x2bu=1" "../userdata.txt" >/dev/null;`
 	then rtl88x2bu_download;
@@ -45,7 +45,7 @@ chmod +x scripts/package/mkdebian
 setup(){
 sleep 1s
 if `grep -Fx "rtl8812au=1" "../userdata.txt" >/dev/null;`
-	then rtl8812au_setup;
+	then rtl8812au;
 fi
 if `grep -Fx "rtl88x2bu=1" "../userdata.txt" >/dev/null;`
 	then rtl88x2bu;
