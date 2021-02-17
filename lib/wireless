@@ -86,7 +86,8 @@ echo -e "${RED}done${FIN}."
 rtl88x2bu(){
 rm -rf linux-${VERSION}/drivers/net/wireless/rtl88x2bu
 mkdir -p linux-${VERSION}/drivers/net/wireless/rtl88x2bu/
-cp -R rtl88x2bu/{core,hal,include,os_dep,platform,halmac.mk,rtl8822b.mk} \
+#cp -R rtl88x2bu/{core,hal,include,os_dep,platform,halmac.mk,rtl8822b.mk} \
+cp -R rtl88x2bu/{core,hal,include,os_dep,platform,rtl8822b.mk} \
 linux-${VERSION}/drivers/net/wireless/rtl88x2bu
 cp -f rtl88x2bu/Makefile linux-${VERSION}/drivers/net/wireless/rtl88x2bu/Makefile
 cp -f rtl88x2bu/Kconfig linux-${VERSION}/drivers/net/wireless/rtl88x2bu/Kconfig
