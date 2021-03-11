@@ -1,4 +1,5 @@
 #!/bin/bash
+source userdata.txt
 source lib/linux
 source lib/wireless
 CORES=`nproc`

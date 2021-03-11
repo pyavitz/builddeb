@@ -74,7 +74,7 @@ cp -f ../../defconfig/${DEFCONFIG}_defconfig arch/${ARCH}/configs/
 rtl8812au_module
 rtl88x2bu_module
 rtl8811cu_module
-make ARCH=${ARCH} ${DEFCONFIG}_defconfig
+make ARCH=${ARCH} CC=${GCC} ${DEFCONFIG}_defconfig
 echo -e "${RED}Done${FIN}."
 }
 
@@ -82,23 +82,14 @@ menuconfig(){
 echo
 echo -e "${RED}Opening menuconfig${FIN}."
 sleep 1s
-make menuconfig
+make ARCH=${ARCH} CC=${GCC} menuconfig
 echo -e "${RED}Done${FIN}."
 }
 
 builddeb(){
 echo
 echo -e "${RED}Building deb packages${FIN}."
-if `grep -Fx 'ARCH="x86"' "../userdata.txt" >/dev/null;`
-    then make -j${CORES} bindeb-pkg
-fi
-if `grep -Fx 'ARCH="arm64"' "../userdata.txt" >/dev/null;`
-    then echo 'y' | make -j${CORES} ARCH=arm64 bindeb-pkg
-fi
-if `grep -Fx 'ARCH="armhf"' "../userdata.txt" >/dev/null;`
-    then echo 'y' | make -j${CORES} ARCH=armhf bindeb-pkg
-fi
-echo
+echo 'y' | make -j${CORES} ARCH=${ARCH} CC=${GCC} bindeb-pkg
 cd ..
 rm -f linux-libc-dev*.deb
 rm -f *.buildinfo
