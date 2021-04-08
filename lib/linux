@@ -89,7 +89,7 @@ echo -e "${RED}Done${FIN}."
 builddeb(){
 echo
 echo -e "${RED}Building deb packages${FIN}."
-echo 'y' | make -j${CORES} ARCH=${ARCH} CC=${GCC} bindeb-pkg
+echo 'y' | make -j${CORES} KBUILD_BUILD_HOST=${DEFCONFIG} ARCH=${ARCH} CC=${GCC} bindeb-pkg
 cd ..
 rm -f linux-libc-dev*.deb
 rm -f *.buildinfo
