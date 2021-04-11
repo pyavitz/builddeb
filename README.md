@@ -30,6 +30,7 @@ make depends		# Install dependencies
 make config		# Create a userdata.txt file
 make kernel		# Build deb package
 make purge		# Remove sources directory
+make purge-all		# Remove sources and output directory
 make purge-wifi		# Remove wifi directories
 ```
 ### User Patches
