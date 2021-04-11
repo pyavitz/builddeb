@@ -8,9 +8,9 @@ PURGEWIFI=$(shell sudo rm -fdr sources/rtl*)
 
 help:
 	@echo
-	@echo "Build linux kernel deb package x86_64/amd64"
+	@echo "\e[1;31mBuild a linux kernel deb package x86_64/amd64\e[0m"
 	@echo
-	@echo "Usage: "
+	@echo "\e[1;37mUsage: "
 	@echo
 	@echo "  make depends           Install dependencies"
 	@echo "  make config            Create user data file"
@@ -19,7 +19,7 @@ help:
 	@echo "  make purge-all         Remove sources and output directory"
 	@echo "  make purge-wifi        Remove wifi directories"
 	@echo
-	@echo "For details consult the README.md"
+	@echo "For details consult the README.md\e[0m"
 	@echo
 
 depends:
