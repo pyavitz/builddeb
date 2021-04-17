@@ -38,7 +38,7 @@ echo
 echo -e "${RED}Downloading rtl88XXcu wifi module${FIN}."
 if ls rtl8811cu > /dev/null 2>&1;
 	then echo -e "${YLW}rtl88XXcu found${FIN}.";
-	else git clone -b cudy https://github.com/pyavitz/rtl8821cu.git rtl8811cu ;
+	else git clone https://github.com/morrownr/8821cu.git rtl8811cu;
 fi
 echo -e "${RED}done${FIN}."
 }
