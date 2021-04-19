@@ -11,7 +11,7 @@ have no problem compiling and creating the *.deb packages for you.
 sudo apt install \
 	build-essential bc kmod cpio flex libncurses5-dev aria2 git dialog \
 	patch rsync lzop lz4 libssl-dev pv distro-info-data lsb-release make \
-	libelf-dev
+	libelf-dev wget
 ```
 ### Config Menu
 ```sh
