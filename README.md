@@ -18,7 +18,7 @@ sudo apt install \
 Defconfig:		# Name of 'nameofdefconfig'_defconfig
 Branch:			# Kernel branch
 GCC:			# Version
-Arch:			# Supoported: x86
+Arch:			# Supported: x86
 Menuconfig:		# 1 to run kernel menuconfig | 0 to skip
 rtl88XXau:		# 1 to add Realtek 8812AU/14AU/21AU wireless support
 rtl88XXbu:		# 1 to add Realtek 88X2BU wireless support
