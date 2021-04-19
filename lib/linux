@@ -1,3 +1,7 @@
+STABLE="https://cdn.kernel.org/pub/linux/kernel/v5.x/"
+MAINLINE="https://git.kernel.org/torvalds/t/"
+DOWNLOAD="aria2c -c --download-result=hide --console-log-level=error --disable-ipv6=true --summary-interval=0 --show-files=false"
+
 sources(){
 source userdata.txt
 mkdir -p sources
@@ -9,11 +13,16 @@ echo_bdone(){
 echo -e "${PNK}[${FIN}${GRN}done${FIN}${PNK}]${FIN}"
 }
 
+choose(){
+if [[ `wget -S --spider ${STABLE}linux-${VERSION}.tar.xz 2>&1 | grep 'HTTP/1.1 200 OK'` ]]; then ${DOWNLOAD} ${STABLE}linux-${VERSION}.tar.xz; else :; fi
+if [[ `wget -S --spider ${MAINLINE}linux-${VERSION}.tar.gz 2>&1 | grep 'HTTP/1.1 200 OK'` ]]; then ${DOWNLOAD} ${MAINLINE}linux-${VERSION}.tar.gz; else :; fi
+}
+
 download(){
 echo -e "${RED}Downloading archive${FIN}."
 if ls linux-${VERSION}.tar.xz > /dev/null 2>&1;
 	then echo -e "${YLW}linux-${VERSION}.tar.xz found${FIN}.";
-	else aria2c -c --download-result=hide --console-log-level=error --disable-ipv6=true --summary-interval=0 --show-files=false https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-${VERSION}.tar.xz && echo_bdone;
+	else choose && echo_bdone;
 fi
 if `grep -Fx "rtl8812au=1" "../userdata.txt" >/dev/null;`
 	then rtl8812au_download;
@@ -30,7 +39,12 @@ extract(){
 echo
 echo -e "${RED}Extracting${FIN} ..."
 echo -e -n "${WHT}"
-pv linux-${VERSION}.tar.xz | tar -xJ linux-${VERSION}
+if ls linux-${VERSION}.tar.xz > /dev/null 2>&1;
+	then pv linux-${VERSION}.tar.xz | tar -xJ linux-${VERSION};
+fi
+if ls linux-${VERSION}.tar.gz > /dev/null 2>&1;
+	then pv linux-${VERSION}.tar.gz | tar -xzf - -C .
+fi
 echo -e -n "${FIN}"
 }
 
