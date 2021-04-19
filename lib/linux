@@ -21,7 +21,7 @@ if [[ `wget -S --spider ${MAINLINE}linux-${VERSION}.tar.gz 2>&1 | grep 'HTTP/1.1
 download(){
 echo -e "${RED}Downloading archive${FIN}."
 if ls linux-${VERSION}.tar.* > /dev/null 2>&1;
-	then echo -e "${YLW}linux-${VERSION}.tar.* found${FIN}.";
+	then echo -e "${YLW}linux-${VERSION} found${FIN}.";
 	else choose && echo_bdone;
 fi
 if `grep -Fx "rtl8812au=1" "../userdata.txt" >/dev/null;`
