@@ -17,6 +17,7 @@ sudo apt install \
 ```sh
 Defconfig:		# Name of 'nameofdefconfig'_defconfig
 Branch:			# Kernel branch
+RC:			# 1 to download Release candidate
 GCC:			# Version
 Arch:			# Supported: x86
 Menuconfig:		# 1 to run kernel menuconfig | 0 to skip
