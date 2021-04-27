@@ -1,8 +1,6 @@
 STABLE="https://cdn.kernel.org/pub/linux/kernel/v5.x/"
 MAINLINE="https://git.kernel.org/torvalds/t/"
 DOWNLOAD="aria2c -c --download-result=hide --console-log-level=error --disable-ipv6=true --summary-interval=0 --show-files=false"
-DLSTABLE="if [[ `wget -S --spider ${STABLE}linux-${VERSION}.tar.xz 2>&1 | grep 'HTTP/1.1 200 OK'` ]]; then ${DOWNLOAD} ${STABLE}linux-${VERSION}.tar.xz; else :; fi"
-DLMAINLINE="if [[ `wget -S --spider ${MAINLINE}linux-${VERSION}.tar.gz 2>&1 | grep 'HTTP/1.1 200 OK'` ]]; then ${DOWNLOAD} ${MAINLINE}linux-${VERSION}.tar.gz; else :; fi"
 
 sources(){
 source userdata.txt
@@ -15,9 +13,17 @@ echo_bdone(){
 echo -e "${PNK}[${FIN}${GRN}done${FIN}${PNK}]${FIN}"
 }
 
+dlstable(){
+if [[ `wget -S --spider ${STABLE}linux-${VERSION}.tar.xz 2>&1 | grep 'HTTP/1.1 200 OK'` ]]; then ${DOWNLOAD} ${STABLE}linux-${VERSION}.tar.xz; else :; fi
+}
+
+dlmainline(){
+if [[ `wget -S --spider ${MAINLINE}linux-${VERSION}.tar.gz 2>&1 | grep 'HTTP/1.1 200 OK'` ]]; then ${DOWNLOAD} ${MAINLINE}linux-${VERSION}.tar.gz; else :; fi
+}
+
 choose(){
 if `grep -Fx "rc=1" "../userdata.txt" >/dev/null;`
-	then DLMAINLINE; else DLSTABLE;
+	then dlmainline; else dlstable;
 fi
 }
 
