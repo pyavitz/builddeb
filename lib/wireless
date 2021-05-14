@@ -3,7 +3,7 @@ rtl8812au_download(){
 echo
 echo -e "${RED}Downloading rtl88XXau wifi module${FIN}."
 if ls rtl8812au > /dev/null 2>&1;
-	then echo -e "${YLW}rtl88XXau found${FIN}.";
+	then echo -e "${YLW}rtl88XXau found${FIN}." && cd rtl8812au && git pull && cd ..;
 	else git clone https://github.com/pyavitz/rtl8812au.git rtl8812au ;
 fi
 echo -e "${RED}done${FIN}."
@@ -37,7 +37,7 @@ rtl8811cu_download(){
 echo
 echo -e "${RED}Downloading rtl88XXcu wifi module${FIN}."
 if ls rtl8811cu > /dev/null 2>&1;
-	then echo -e "${YLW}rtl88XXcu found${FIN}.";
+	then echo -e "${YLW}rtl88XXcu found${FIN}." && cd rtl8811cu && git pull && cd ..;
 	else git clone https://github.com/morrownr/8821cu.git rtl8811cu;
 fi
 echo -e "${RED}done${FIN}."
@@ -77,7 +77,7 @@ rtl88x2bu_download(){
 echo
 echo -e "${RED}Downloading rtl88X2bu wifi module${FIN}."
 if ls rtl88x2bu > /dev/null 2>&1;
-	then echo -e "${YLW}rtl88X2bu found${FIN}.";
+	then echo -e "${YLW}rtl88X2bu found${FIN}." && cd rtl88x2bu && git pull && cd ..;
 	else git clone https://github.com/EntropicEffect/rtl8822bu.git rtl88x2bu ;
 fi
 echo -e "${RED}done${FIN}."

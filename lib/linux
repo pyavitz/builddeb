@@ -14,11 +14,17 @@ echo -e "${PNK}[${FIN}${GRN}done${FIN}${PNK}]${FIN}"
 }
 
 dlstable(){
-if [[ `wget -S --spider ${STABLE}linux-${VERSION}.tar.xz 2>&1 | grep 'HTTP/1.1 200 OK'` ]]; then ${DOWNLOAD} ${STABLE}linux-${VERSION}.tar.xz; else :; fi
+if [[ `wget -S --spider ${STABLE}linux-${VERSION}.tar.xz 2>&1 | grep 'HTTP/1.1 200 OK'` ]];
+	then ${DOWNLOAD} ${STABLE}linux-${VERSION}.tar.xz;
+	else echo && echo -e "${WHT}It appears the kernel selected is not available${FIN}?" && exit;
+fi
 }
 
 dlmainline(){
-if [[ `wget -S --spider ${MAINLINE}linux-${VERSION}.tar.gz 2>&1 | grep 'HTTP/1.1 200 OK'` ]]; then ${DOWNLOAD} ${MAINLINE}linux-${VERSION}.tar.gz; else :; fi
+if [[ `wget -S --spider ${MAINLINE}linux-${VERSION}.tar.gz 2>&1 | grep 'HTTP/1.1 200 OK'` ]];
+	then ${DOWNLOAD} ${MAINLINE}linux-${VERSION}.tar.gz;
+	else echo && echo -e "${WHT}It appears the kernel selected is not available${FIN}?" && exit;
+fi
 }
 
 choose(){
