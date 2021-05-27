@@ -27,6 +27,7 @@ if ls userdata.txt > /dev/null 2>&1;
 	then echo "" && echo -e "${GRN}userdata file found${FIN}.";
 	else userdata;
 fi
+compiler
 sources
 clean
 echo
